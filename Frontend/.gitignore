@@ -8,9 +8,10 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+.env
 dist
 dist-ssr
-*.local
+*.localgit push -u origin main
 
 # Editor directories and files
 .vscode/*
