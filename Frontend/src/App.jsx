@@ -1,0 +1,23 @@
+import {BrowserRouter,Routes,Route} from 'react-router-dom';
+import ProtectedRoute from './component/ProtectedRoute'
+import './App.css'
+import Login from './pages/Login'
+import Register from './pages/Register';
+import Dashboard from './pages/Dashboard';
+import ForgotPassword from './pages/ForgotPassword'
+function App() {
+   
+
+  return (
+  
+   <Routes>
+    <Route path="/" element={<Login/>}/>
+    <Route path="/register" element={<Register/>}/>
+    <Route path="/dashboard" element={<ProtectedRoute><Dashboard/></ProtectedRoute>}/>
+    <Route path="/forgot-password" element={<ForgotPassword/>}/>
+   </Routes>  
+   
+  )
+}
+
+export default App
