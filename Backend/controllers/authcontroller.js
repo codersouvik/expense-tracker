@@ -21,7 +21,18 @@ exports.registerUser = async(req,res)=>{
              password:hashedpassword
         })
 
-        res.status(201).json({message:"User registered Successfully"})
+        const token = jwt.sign({id:user._id},process.env.JWT_SECRET,{expiresIn:"7d"})
+
+        res.status(201).json(
+          {
+            token,
+            user:{
+              _id:user.id,
+              name:user.name,
+              email:user.email
+            }
+          }
+        )
 
     }
     catch(error){
