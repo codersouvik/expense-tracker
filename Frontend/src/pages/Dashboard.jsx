@@ -70,7 +70,7 @@ const Dashboard = () => {
           <ExpenseSummary summary={summary} />
           <MonthlyChart data={monthlyData} />
           
-          <ExpenseForm refreshExpenses={fetchExpenses} selectedExpense={selectedExpense}
+          <ExpenseForm refreshExpenses={fetchExpenses} refreshMonthly={fetchMonthlyData} selectedExpense={selectedExpense}
             setSelectedExpense={setSelectedExpense} />
           <div className="filter">
             <div className="auth-card1">
@@ -80,7 +80,7 @@ const Dashboard = () => {
               <input type="date" placeholder="endDate" value={filters.endDate} onChange={(e) => Setfilters({ ...filters, endDate: e.target.value })} />
             </div>
           </div>
-          <ExpenseList expenses={expenses} refreshExpenses={fetchExpenses} setSelectedExpense={setSelectedExpense} />
+          <ExpenseList expenses={expenses} refreshExpenses={fetchExpenses} refreshMonthly={fetchMonthlyData} setSelectedExpense={setSelectedExpense} />
           <div className="pagination">
             <button
               disabled={currentPage === 1}

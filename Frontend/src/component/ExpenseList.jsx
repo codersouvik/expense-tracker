@@ -1,6 +1,6 @@
 import API from "../api/axios";
 
-const ExpenseList = ({ expenses, refreshExpenses ,setSelectedExpense}) => {
+const ExpenseList = ({ expenses, refreshExpenses,refreshMonthly ,setSelectedExpense}) => {
 
    console.log("Expenses:", expenses);
   const handleEdit = (expense) => {
@@ -10,6 +10,7 @@ const ExpenseList = ({ expenses, refreshExpenses ,setSelectedExpense}) => {
     try {
       await API.delete(`/expense/${id}`);
       refreshExpenses();
+      refreshMonthly();
     } catch (error) {
       alert("Delete failed");
     }

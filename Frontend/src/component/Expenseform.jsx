@@ -1,7 +1,7 @@
 import { useState,useEffect } from "react";
 import API from "../api/axios";
 
-const ExpenseForm = ({ refreshExpenses, selectedExpense, setSelectedExpense }) => {
+const ExpenseForm = ({ refreshExpenses,refreshMonthly, selectedExpense, setSelectedExpense }) => {
   const [form, setForm] = useState({
     title: "",
     amount: "",
@@ -46,6 +46,7 @@ const ExpenseForm = ({ refreshExpenses, selectedExpense, setSelectedExpense }) =
     });
 
     refreshExpenses();
+    refreshMonthly();
   } catch (error) {
     alert("Error saving expense");
   }
