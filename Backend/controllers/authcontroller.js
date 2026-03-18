@@ -85,10 +85,7 @@ exports.ForgotPassword = async(req,res)=>{
       return res.status(404).json({message:"User not found"})
      }
      const resetToken =  crypto.randomBytes(20).toString("hex");
-      console.log("RAW TOKEN:", resetToken);
      const hashedToken = crypto.createHash("sha256").update(resetToken).digest("hex");
-    console.log("HASHED TOKEN SAVED:", hashedToken);
-  
      user.resetPasswordToken = hashedToken;
      user.resetPasswordExpire =  Date.now() + 15*60*1000
 
@@ -108,11 +105,7 @@ exports.ForgotPassword = async(req,res)=>{
 
 exports.ResetPassword = async(req,res)=>{
   try{ 
-
-      console.log("TOKEN FROM URL:", req.params.token);
        const hashedToken = crypto.createHash("sha256").update(req.params.token).digest("hex");
-       
-       console.log("HASHED TOKEN FROM URL:", hashedToken);
        const user  = await User.findOne({
         resetPasswordToken: hashedToken,
         resetPasswordExpire: { $gt: Date.now() }

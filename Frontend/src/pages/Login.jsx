@@ -32,7 +32,7 @@ const Login =()=>{
         <p>
             No Account?<Link to="/register">Register</Link>
         </p>
-        <p><Link to="forgot-password">Forgot Password</Link></p>
+        <p><Link to="/forgot-password">Forgot Password</Link></p>
         </div>
     </div>
    )
