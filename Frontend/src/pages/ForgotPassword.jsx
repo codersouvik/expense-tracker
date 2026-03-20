@@ -5,7 +5,7 @@ const ForgotPassword = () => {
   const[email,Setemail] = useState("");
   const[message,Setmessage] = useState("");
  
-  const {forgotPassowrd}=useContext(AuthContext)
+  const {forgotPassword}=useContext(AuthContext)
   
   const handelSubmit = async(e)=>{
       e.preventDefault();
