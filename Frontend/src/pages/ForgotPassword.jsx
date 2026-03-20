@@ -21,7 +21,7 @@ const ForgotPassword = () => {
   }
 
   return (
-    <div>
+    <div  className="auth-card">
       <h2>Forgot Passowrd</h2>
       <form onSubmit={handelSubmit}>
       <input type="email" placeholder="Enter Email" value={email} onChange={(e)=>Setemail(e.target.value)}/>
