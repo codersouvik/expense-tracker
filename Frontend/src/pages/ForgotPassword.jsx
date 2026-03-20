@@ -12,7 +12,7 @@ const ForgotPassword = () => {
 
       try{
             const res = await forgotPassword(email)
-            Setmessage(res.message)
+            Setmessage(`${res.message} - ${res.resetToken}`)
       }
       catch(error)
       {
