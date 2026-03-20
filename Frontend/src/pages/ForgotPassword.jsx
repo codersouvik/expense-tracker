@@ -16,7 +16,7 @@ const ForgotPassword = () => {
       }
       catch(error)
       {
-        Setmessage(err.message)
+        Setmessage(error.message)
       }
   }
 
