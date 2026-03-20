@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
 
      const resetPassword =  async(token,password)=>{
        try{
-        const res = await API.post(`/auth/reset-password/${token}`,{password})
+        const res = await API.put(`/auth/reset-password/${token}`,{password})
        return res.data;
        }
        catch (error) {
