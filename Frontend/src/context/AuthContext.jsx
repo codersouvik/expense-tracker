@@ -16,13 +16,13 @@ export const AuthProvider = ({ children }) => {
 
     const forgotPassword =  async(email)=>{
        
-        const {res} = await API.post("/auth/forgot-password",{email})
+        const res = await API.post("/auth/forgot-password",{email})
        return res.data;
-    }
+    }  
 
      const resetPassword =  async(token,password)=>{
        
-        const {res} = await API.post(`/auth/reset-password/${token}`,{password})
+        const res = await API.post(`/auth/reset-password/${token}`,{password})
        return res.data;
     }
 
