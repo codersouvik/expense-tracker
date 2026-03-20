@@ -91,10 +91,31 @@ exports.ForgotPassword = async(req,res)=>{
 
      await user.save();
 
-     res.json({
-      message:"Reset Token Generated",
-      resetToken
+     const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
+
+     const transporter  = nodemailer.createTransport({
+      service:"gmail",
+      auth:{
+        user:process.env.EMAIL_USER,
+        pass:process.env.EMAIL_PASS,
+      }
      })
+
+     await transporter.sendMail({
+      from:process.env.EMAIL_USER,
+      to:user.email,
+      subjet:"Password Reset Request",
+      html:`
+      <p>You Requested a Password Reset</p>
+      <p>Click the Link below to Reset a Password</p>
+      <a href="${resetUrl}">${resetUrl}</a>
+      <p>This Link will Expire in 15 mins</p>
+      `
+     })
+
+   res.json({
+      message: "Password reset link has been sent to your email",
+    });
 
   }
   catch(error)
