@@ -21,9 +21,14 @@ export const AuthProvider = ({ children }) => {
     }  
 
      const resetPassword =  async(token,password)=>{
-       
+       try{
         const res = await API.post(`/auth/reset-password/${token}`,{password})
        return res.data;
+       }
+       catch (error) {
+    throw error.response?.data || { message: "Error resetting password" };
+  }
+        
     }
 
     const login = async (email, password) => {
