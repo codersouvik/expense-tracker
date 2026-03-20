@@ -21,6 +21,7 @@ const ForgotPassword = () => {
   }
 
   return (
+    <div className="auth-container">
     <div  className="auth-card">
       <h2>Forgot Passowrd</h2>
       <form onSubmit={handelSubmit}>
@@ -28,6 +29,7 @@ const ForgotPassword = () => {
       <button type="submit">Send Resent Link</button>      
       </form>
       <p>{message}</p>
+    </div>
     </div>
   )
 }
