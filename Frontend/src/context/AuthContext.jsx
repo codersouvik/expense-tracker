@@ -14,13 +14,13 @@ export const AuthProvider = ({ children }) => {
           setLoading(false);
     }, []);
 
-    const forgotPassowrd =  async(email)=>{
+    const forgotPassword =  async(email)=>{
        
         const {res} = await API.post("/auth/forgot-password",{email})
        return res.data;
     }
 
-     const resetPassowrd =  async(token,password)=>{
+     const resetPassword =  async(token,password)=>{
        
         const {res} = await API.post(`/auth/reset-password/${token}`,{password})
        return res.data;
@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider value={{user,login,register,logout,loading,forgotPassowrd,resetPassowrd}}>
+        <AuthContext.Provider value={{user,login,register,logout,loading,forgotPassword,resetPassword}}>
             {children}
         </AuthContext.Provider>
     )
