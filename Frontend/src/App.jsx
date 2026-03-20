@@ -4,7 +4,8 @@ import './App.css'
 import Login from './pages/Login'
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
-import ForgotPassword from './pages/ForgotPassword'
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 function App() {
    
 
@@ -15,6 +16,7 @@ function App() {
     <Route path="/register" element={<Register/>}/>
     <Route path="/dashboard" element={<ProtectedRoute><Dashboard/></ProtectedRoute>}/>
     <Route path="/forgot-password" element={<ForgotPassword/>}/>
+    <Route path="reset-password" element={<ResetPassword/>}/>
       <Route path="*" element={<Navigate to="/" />} />
    </Routes>  
    
