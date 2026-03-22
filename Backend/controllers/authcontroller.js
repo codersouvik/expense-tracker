@@ -118,10 +118,10 @@ exports.ForgotPassword = async(req,res)=>{
     });
 
   }
-  catch(error)
-  {
-    res.status(500).json({message:"Server Error"})
-  }
+   catch (error) {
+  console.log("ForgotPassword error:", error);
+  res.status(500).json({ message: "Server Error" });
+}
 }
 
 exports.ResetPassword = async(req,res)=>{
