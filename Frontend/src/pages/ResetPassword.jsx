@@ -34,7 +34,14 @@ const ResetPassword =()=>{
             <div className="auth-card">
                 <h2>Reset Password</h2>
                 <form onSubmit={HandelSubmit}>
-                    <input type="password" Placeholder="Enter New Password" value={password} onChange={(e)=>Setpassword(e.target.value)} required/>
+                    <input
+  type="password"
+  placeholder="Enter New Password"
+  value={password}
+  onChange={(e) => Setpassword(e.target.value)}
+  required
+  autoComplete="new-password"
+/>
                     <button type="submit">Reset Password</button>
 
                 </form>
