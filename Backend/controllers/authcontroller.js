@@ -116,7 +116,7 @@ exports.ForgotPassword = async(req,res)=>{
      await transporter.sendMail({
       from:process.env.EMAIL_USER,
       to:user.email,
-      subjet:"Password Reset Request",
+      subject:"Password Reset Request",
       html:`
       <p>You Requested a Password Reset</p>
       <p>Click the Link below to Reset a Password</p>
