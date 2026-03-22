@@ -80,19 +80,22 @@ exports.Loginuser = async(req,res)=>{
 
 exports.ForgotPassword = async(req,res)=>{
   try{
-
+     console.log("ForgotPassword hit:", req.body.email);
      const user = await User.findOne({email:req.body.email});
      if(!user){
+       console.log("User not found");
       return res.status(404).json({message:"User not found"})
      }
      const resetToken =  crypto.randomBytes(20).toString("hex");
      const hashedToken = crypto.createHash("sha256").update(resetToken).digest("hex");
      user.resetPasswordToken = hashedToken;
      user.resetPasswordExpire =  Date.now() + 15*60*1000
-
      await user.save();
 
      const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
+     console.log("FRONTEND_URL:", process.env.FRONTEND_URL);
+    console.log("EMAIL_USER:", process.env.EMAIL_USER);
+    console.log("EMAIL_PASS exists:", !!process.env.EMAIL_PASS);
 
      const transporter  = nodemailer.createTransport({
       service:"gmail",
@@ -101,6 +104,7 @@ exports.ForgotPassword = async(req,res)=>{
         pass:process.env.EMAIL_PASS,
       }
      })
+     console.log("Transporter created");
 
      await transporter.sendMail({
       from:process.env.EMAIL_USER,
@@ -113,6 +117,9 @@ exports.ForgotPassword = async(req,res)=>{
       <p>This Link will Expire in 15 mins</p>
       `
      })
+
+        console.log("Mail sent successfully");
+
 
    res.json({
       message: "Password reset link has been sent to your email",
