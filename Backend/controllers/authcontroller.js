@@ -78,74 +78,36 @@ exports.Loginuser = async(req,res)=>{
     }
 }
 
-exports.ForgotPassword = async(req,res)=>{
-  try{
-     console.log("ForgotPassword hit:", req.body.email);
-     const user = await User.findOne({email:req.body.email});
-     if(!user){
-       console.log("User not found");
-      return res.status(404).json({message:"User not found"})
-     }
-     const resetToken =  crypto.randomBytes(20).toString("hex");
-     const hashedToken = crypto.createHash("sha256").update(resetToken).digest("hex");
-     user.resetPasswordToken = hashedToken;
-     user.resetPasswordExpire =  Date.now() + 15*60*1000
-     await user.save();
+ exports.ForgotPassword = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
 
-     const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
-     console.log("FRONTEND_URL:", process.env.FRONTEND_URL);
-    console.log("EMAIL_USER:", process.env.EMAIL_USER);
-    console.log("EMAIL_PASS exists:", !!process.env.EMAIL_PASS);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
 
-     const transporter  = nodemailer.createTransport({
-       host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
-   requireTLS: true,
-      auth:{
-        user:process.env.EMAIL_USER,
-        pass:process.env.EMAIL_PASS,
-      },
-      connectionTimeout: 10000,
-  greetingTimeout: 10000,
-  socketTimeout: 10000,
-  family: 4,
-     })
-     console.log("Transporter created");
+    const resetToken = crypto.randomBytes(20).toString("hex");
+    const hashedToken = crypto
+      .createHash("sha256")
+      .update(resetToken)
+      .digest("hex");
 
-     await transporter.sendMail({
-      from:process.env.EMAIL_USER,
-      to:user.email,
-      subject:"Password Reset Request",
-      html:`
-      <p>You Requested a Password Reset</p>
-      <p>Click the Link below to Reset a Password</p>
-      <a href="${resetUrl}">${resetUrl}</a>
-      <p>This Link will Expire in 15 mins</p>
-      `
-     })
+    user.resetPasswordToken = hashedToken;
+    user.resetPasswordExpire = Date.now() + 15 * 60 * 1000;
 
-        console.log("Mail sent successfully");
+    await user.save();
 
+    const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
 
-   res.json({
-      message: "Password reset link has been sent to your email",
+    return res.status(200).json({
+      message: "Reset link generated successfully",
+      resetUrl,
     });
-
+  } catch (error) {
+    console.log("ForgotPassword error:", error);
+    return res.status(500).json({ message: "Server Error" });
   }
-   catch (error) {
-     console.log("ForgotPassword full error:", error);
-  console.log("Error message:", error.message);
-  console.log("Error code:", error.code);
-  console.log("Error response:", error.response);
-  console.log("Error stack:", error.stack);
-
-  res.status(500).json({ message: "Server Error" });
-  console.log("ForgotPassword error:", error);
-  res.status(500).json({ message: "Server Error" });
-}
-}
-
+};
 exports.ResetPassword = async(req,res)=>{
   try{ 
        const hashedToken = crypto.createHash("sha256").update(req.params.token).digest("hex");
