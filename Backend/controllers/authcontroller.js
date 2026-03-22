@@ -2,7 +2,8 @@ const User = require('../models/User');
 const bcrypt= require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
-//Register//
+const nodemailer = require("nodemailer");
+
 
 exports.registerUser = async(req,res)=>{
     try{
