@@ -12,7 +12,11 @@ const ForgotPassword = () => {
 
       try{
             const res = await forgotPassword(email)
-            Setmessage(`${res.message} - ${res.resetToken}`)
+              Setmessage(res.message);
+
+    if (res.resetUrl) {
+      window.location.href = res.resetUrl;
+    }
       }
       catch(error)
       {
