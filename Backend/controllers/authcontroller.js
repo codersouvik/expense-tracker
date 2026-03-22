@@ -134,6 +134,13 @@ exports.ForgotPassword = async(req,res)=>{
 
   }
    catch (error) {
+     console.log("ForgotPassword full error:", error);
+  console.log("Error message:", error.message);
+  console.log("Error code:", error.code);
+  console.log("Error response:", error.response);
+  console.log("Error stack:", error.stack);
+
+  res.status(500).json({ message: "Server Error" });
   console.log("ForgotPassword error:", error);
   res.status(500).json({ message: "Server Error" });
 }
